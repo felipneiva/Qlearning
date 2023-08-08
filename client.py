@@ -75,8 +75,8 @@ for line in matriz_utilidade:
     print(line)
 
 s = cn.connect(2037)
-curr_state = 0
-curr_reward = -14
+curr_state = 92
+curr_reward = -1
 acoes = ["left", "right", "jump"]
 
 while True:
