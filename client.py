@@ -2,12 +2,12 @@
 import connection as cn
 import random as rd
 
-alpha = 0.1
+alpha = 0.8
 
 
 # U(s) = R(s) + γ maxa Σs’ T(s,a,s’) U(s’)
 def utilidade_estado(next_st, rec):
-    gama = 0.9
+    gama = 0.6
 
     utilidade = rec + gama * max(matriz_utilidade[next_st])
     return utilidade
@@ -78,13 +78,15 @@ s = cn.connect(2037)
 curr_state = 92
 curr_reward = -1
 acoes = ["left", "right", "jump"]
+aleatoriedade = 0.2
 
 while True:
-    #acao = acoes[rd.randint(0, 2)]  # escolher uma acao aleatoria
-
-    acao = acoes[melhor_acao(curr_state)]
-
-    #print(acao)
+    if rd.random() < aleatoriedade:
+        acao = acoes[rd.randint(0, 2)]  # escolher uma acao aleatoria
+        print(f'Ação aleatória escolhida {acao}')
+    else:
+        acao = acoes[melhor_acao(curr_state)]
+        print(f'Melhor ação escolhida {acao}')
 
     if acao == "left":
         col_acao = 0
