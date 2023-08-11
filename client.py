@@ -3,12 +3,12 @@ import connection as cn
 import random as rd
 import numpy as np
 
-alpha = 0.15
+alpha = 0.05
 
 
 # U(s) = R(s) + γ maxa Σs’ T(s,a,s’) U(s’)
 def utilidade_estado(next_st, rec):
-    gama = 0.45
+    gama = 0.8
 
     utilidade = rec + gama * max(matriz_utilidade[next_st])
     return utilidade
@@ -30,9 +30,10 @@ s = cn.connect(2037)
 curr_state = 0
 curr_reward = -14
 acoes = ["left", "right", "jump"]
-aleatoriedade = 0.1
+aleatoriedade = 0
 
 while True:
+    print(curr_state)
     if rd.random() < aleatoriedade:
         acao = acoes[rd.randint(0, 2)]  # escolher uma acao aleatoria
         print(f'Ação aleatória escolhida para o estado {curr_state}: {acao}')
@@ -55,7 +56,10 @@ while True:
     estado = int(estado, 2)
     next_state = estado
 
+
+    print(f'valor anterior dessa ação: {matriz_utilidade[curr_state][col_acao]}')
     matriz_utilidade[curr_state][col_acao] = matriz_utilidade[curr_state][col_acao] + alpha*(utilidade_estado(next_state, curr_reward) - matriz_utilidade[curr_state][col_acao])
+    print(f'valor novo dessa ação: {matriz_utilidade[curr_state][col_acao] + alpha*(utilidade_estado(next_state, curr_reward) - matriz_utilidade[curr_state][col_acao])}')
 
     curr_state = next_state
     curr_reward = recompensa
