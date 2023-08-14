@@ -3,12 +3,12 @@ import connection as cn
 import random as rd
 import numpy as np
 
-alpha = 0.05
+alpha = 0.01
 
 
 # U(s) = R(s) + γ maxa Σs’ T(s,a,s’) U(s’)
 def utilidade_estado(next_st, rec):
-    gama = 0.8
+    gama = 0.5
 
     utilidade = rec + gama * max(matriz_utilidade[next_st])
     return utilidade
